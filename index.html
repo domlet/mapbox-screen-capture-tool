@@ -11,8 +11,8 @@
  
 <style>
 body { margin:0; padding:0; background: #000}
-#map { position:absolute; top:0; bottom:0; width:95%; left:5%; z-index: 1;}
-#buttons, #styles {margin: 0; padding: 0; width: 5%; position: relative; left:0; white-space: nowrap}
+#map { position:absolute; top:0; bottom:0; width:96%; left:4%; z-index: 1;}
+#buttons, #styles {margin: 0; padding: 0; width: 4%; position: relative; left:0; white-space: nowrap}
 .button {
 display: block;
 position: relative;
@@ -31,6 +31,7 @@ font-weight: bold;
 
 <div id='map'></div>
 <ul id=styles>
+	<li class='button' id="style-mapbox://styles/dombox/cjypzncg559dz1cr1jcm7h36y">😎 Bubble</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxwswpg11rs01cozlj976vxy">😎 Satellite</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxwsxb1j0j6u1clmh9ln13jx">✅ Satellite Streets</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxwsz4fn8ri61cs615ndwx6k">✅ Light</li>
@@ -50,10 +51,10 @@ font-weight: bold;
 	<li class='button' id="style-mapbox://styles/dombox/cjnl4yn8m9e7e2smfuzqmwoja">❌ Dark</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjmwlsxgk13mt2spcu46mitwp">❌ Happy</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxv1kt1a9t651cnymdmbxmn2">❌ Mineral</li>
-	<li class='button' id="style-mapbox://styles/dombox/cjxwmhs386f921crpvrq2ais9">❌ Nav Preview Night</li>
-	<li class='button' id="style-mapbox://styles/dombox/cjxwsu8lg1rs21cmn2c2vamsd">❌ Nav Preview Day</li>
-	<li class='button' id="style-mapbox://styles/dombox/cjxwsva486l8z1crp2agatypj">❌ Nav Guidance Day</li>
-	<li class='button' id="style-mapbox://styles/dombox/cjxwt1c5d0j501clwboq2pd7x">❌ Nav Guidance Night</li>
+	<li class='button' id="style-mapbox://styles/dombox/cjxwmhs386f921crpvrq2ais9">❌ Nav Prev Night</li>
+	<li class='button' id="style-mapbox://styles/dombox/cjxwsu8lg1rs21cmn2c2vamsd">❌ Nav Prev Day</li>
+	<li class='button' id="style-mapbox://styles/dombox/cjxwsva486l8z1crp2agatypj">❌ Nav Guide Day</li>
+	<li class='button' id="style-mapbox://styles/dombox/cjxwt1c5d0j501clwboq2pd7x">❌ Nav Guide Night</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxv1dy45063i1cn9du2dqpea">❌ WHAAM</li>
 	<li class='button' id="style-mapbox://styles/dombox/cjxznq79v0k8q1cn2axfe4ktm">❌ Cali Terrain</li>
 </ul>
@@ -75,52 +76,28 @@ font-weight: bold;
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tYm94IiwiYSI6ImNqZXJmcXo2azExYnkzM3FudTZpc3VydzYifQ.rC2zknJroNXBbHPkUnIPyQ';
 var map = new mapboxgl.Map({
-container: 'map',
-// style: 'mapbox://styles/dombox/cjxtt5s483ssd1cpo8cj63edv', // stranger things
-// style: 'mapbox://styles/dombox/cjxv0ris112iv1cnstvpg0xmu', // Decimal
-// style: 'mapbox://styles/dombox/cjxtt4wp98n7v1cnrq3du7sd9', // 8-bit
-// style: 'mapbox://styles/dombox/cjva3lwxa8k8c1fqxyhq4zctq', // architect
-// style: 'mapbox://styles/dombox/cjvwqf97m13lh1cmrduzv0lul', // minimo
-// style: 'mapbox://styles/dombox/cjphp0huz3ima2rl8tbf0fsxl', // ski
-// style: 'mapbox://styles/dombox/cjphcyd5e2sns2sqn8dxyscw5', // labelmaker
-// style: 'mapbox://styles/dombox/cjnl4yn8m9e7e2smfuzqmwoja', // dark
-// style: 'mapbox://styles/dombox/cjmwlsxgk13mt2spcu46mitwp', // happy
-// style: 'mapbox://styles/dombox/cjnfk4z4d0ldl2rs75q1rbfbp', // Cartogram
-// style: 'mapbox://styles/dombox/cjxv1igjj73y81cs6te131gbz', // Monochrome
-// style: 'mapbox://styles/dombox/cjxv1kt1a9t651cnymdmbxmn2', // Mineral (no language support)
-// style: 'mapbox://styles/dombox/cjxwmhs386f921crpvrq2ais9', // Navigation Preview Night
-// style: 'mapbox://styles/dombox/cjxwsp0pfbg6a1ckc67dt4jkm', // Streets
-// style: 'mapbox://styles/dombox/cjxwmhctxbaba1cqmvrmq7w7y', // Basic
-style: 'mapbox://styles/dombox/cjxwstgts0hqo1cn1ri0oy6lv', // Outdoors
-// style: 'mapbox://styles/dombox/cjxwsxb1j0j6u1clmh9ln13jx', // Satellite Streets
-// style: 'mapbox://styles/dombox/cjxwswpg11rs01cozlj976vxy', // Satellite
-// style: 'mapbox://styles/dombox/cjxwsu8lg1rs21cmn2c2vamsd', // Navigation Preview Day
-// style: 'mapbox://styles/dombox/cjxwsva486l8z1crp2agatypj', // Navigation Guidance Day
-// style: 'mapbox://styles/dombox/cjxwt1c5d0j501clwboq2pd7x', // Navigation Guidance Night
-// style: 'mapbox://styles/dombox/cjxwsz4fn8ri61cs615ndwx6k', // Light
-// style: 'mapbox://styles/dombox/cjxwt0bw60hxh1cmqajlx8ek4', // Streets (full language support)
-// style: 'mapbox://styles/dombox/cjxv1dy45063i1cn9du2dqpea', // WHAAM (LANG SWAP NOT WORKING)
-// style: 'mapbox://styles/dombox/cjxznq79v0k8q1cn2axfe4ktm', // Cali Terrain (lang swap not supported)
-
-center: [16.05, 48],
-zoom: 2.9
+	container: 'map',
+	style: 'mapbox://styles/dombox/cjxwstgts0hqo1cn1ri0oy6lv', // Outdoors
+	center: [16.05, 48],
+	zoom: 2.9
 });
  
-// language-switcher
-document.getElementById('buttons').addEventListener('click', function(event) {
-var language = event.target.id.substr('button-'.length);
-// Use setLayoutProperty to set the value of a layout property in a style layer.
-// The three arguments are the id of the layer, the name of the layout property,
-// and the new property value.
-map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + language]);
+// LANGUAGE-SWITCHER
+document.getElementById('buttons').addEventListener('click', function(changelanguage) {
+	var language = changelanguage.target.id.substr('button-'.length);
+	// Use setLayoutProperty to set the value of a layout property in a style layer.
+	// The three arguments are the id of the layer, the name of the layout property,
+	// and the new property value.
+	map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + language]);
 });
 
-// STYLE SWITCHER
-document.getElementById('styles').addEventListener('click', function(event) {
-var style = event.target.id.substr('style-'.length);
-map.setStyle(style);
+// STYLE-SWITCHER
+document.getElementById('styles').addEventListener('click', function(changestyle) {
+	var style = changestyle.target.id.substr('style-'.length);
+	map.setStyle(style);
 });
 
 </script>
+
 </body>
 </html>
