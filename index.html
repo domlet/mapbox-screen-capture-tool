@@ -2,31 +2,19 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<title>domlet language switcher</title>
+<title>Mapbox Screenshot Helper - @domlet</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js'></script>
+<script type='text/javascript' src='config.js'></script> <!-- MAPBOX_SECRET_TOKEN -->
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
  
 <style>
-body { margin:0; padding:0; background: #000}
-#map { position:absolute; top:0; bottom:0; width:96%; left:4%; z-index: 1;}
-#buttons, #styles {margin: 0; padding: 0; width: 4%; position: relative; left:0; white-space: nowrap}
-.button {
-display: block;
-position: relative;
-cursor: pointer;
-/*width: 2%;*/
-padding:.2em .4em;
-/*border-radius: 3px;*/
-margin: 0;
-font-size: 8px;
-color: #666;
-/*background: #666;*/
-font-family: sans-serif;
-font-weight: bold;
-}
+	body { margin:0; padding:0; background: #000}
+	#map { position:absolute; top:0; bottom:0; width:96%; left:4%; z-index: 1;}
+	#buttons, #styles {margin: 0; padding: 0; width: 4%; position: relative; left:0; white-space: nowrap}
+	.button { display: block; position: relative; cursor: pointer; padding:.2em .4em; margin: 0; font-size: 8px; color: #666; font-family: sans-serif; font-weight: bold; }
 </style>
 
 <div id='map'></div>
@@ -65,7 +53,7 @@ font-weight: bold;
 <li id='button-fr' class='button'>FR</li>
 <li id='button-de' class='button'>DE</li>
 <li id='button-ru' class='button'>RU</li>
-<li id='button-zh' class='button'>ZH</li> <!-- JUST DOESN'T WORK MOST OF THE TIME-->
+<li id='button-zh' class='button'>ZH</li>
 <li id='button-zh-Hans' class='button'>ZHS</li> <!-- CHINESE SIMPLIFIED -->
 <li id='button-pt' class='button'>PT</li>
 <li id='button-ar' class='button'>AR</li>
@@ -74,28 +62,31 @@ font-weight: bold;
 </ul>
 
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiZG9tYm94IiwiYSI6ImNqZXJmcXo2azExYnkzM3FudTZpc3VydzYifQ.rC2zknJroNXBbHPkUnIPyQ';
-var map = new mapboxgl.Map({
-	container: 'map',
-	style: 'mapbox://styles/dombox/cjxwstgts0hqo1cn1ri0oy6lv', // Outdoors
-	center: [16.05, 48],
-	zoom: 2.9
-});
- 
-// LANGUAGE-SWITCHER
-document.getElementById('buttons').addEventListener('click', function(changelanguage) {
-	var language = changelanguage.target.id.substr('button-'.length);
-	// Use setLayoutProperty to set the value of a layout property in a style layer.
-	// The three arguments are the id of the layer, the name of the layout property,
-	// and the new property value.
-	map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + language]);
-});
 
-// STYLE-SWITCHER
-document.getElementById('styles').addEventListener('click', function(changestyle) {
-	var style = changestyle.target.id.substr('style-'.length);
-	map.setStyle(style);
-});
+	var MAPBOX_SECRET_TOKEN = config.MAPBOX_SECRET_TOKEN; // HIDE YO KEYS
+
+	mapboxgl.accessToken = MAPBOX_SECRET_TOKEN;
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/dombox/cjxwstgts0hqo1cn1ri0oy6lv', // Outdoors
+		center: [16.05, 48],
+		zoom: 2.9
+	});
+	 
+	// LANGUAGE-SWITCHER
+	document.getElementById('buttons').addEventListener('click', function(changelanguage) {
+		var language = changelanguage.target.id.substr('button-'.length);
+		// Use setLayoutProperty to set the value of a layout property in a style layer.
+		// The three arguments are the id of the layer, the name of the layout property,
+		// and the new property value.
+		map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + language]);
+	});
+
+	// STYLE-SWITCHER
+	document.getElementById('styles').addEventListener('click', function(changestyle) {
+		var style = changestyle.target.id.substr('style-'.length);
+		map.setStyle(style);
+	});
 
 </script>
 
